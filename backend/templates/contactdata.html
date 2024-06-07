@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">details of categories</h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                              <th>
+                         ID
+                          </th>
+                          <th>
+                          NAME
+                          </th>
+                            <th>
+                        EMAIL
+                          </th>
+                          <th>
+              PHONE
+                          </th>
+                               <th>
+                      SUBJECT
+                          </th>
+
+                          <th>
+                           MESSAGES
+                          </th>
+                            <th>
+                           OPTIONS
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {%  for i in contdata %}
+                        <tr>
+                          <td class="py-1">{{i.id}}</td>
+                          <td>{{i.name}}</td>
+                             <td>{{i.email}}</td>
+                             <td>{{i.phone}}</td>
+                            <td>{{i.subject}}</td>
+                            <td>{{i.Message}}</td>
+
+                        </tr>
+{% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

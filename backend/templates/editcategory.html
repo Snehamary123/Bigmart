@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"> Edit categories here.......!</h4>
+                  <p class="card-description">
+                fill up
+                  </p>
+                  <form class="forms-sample" method="POST" action="{% url 'updatecategory' catid=data.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputName1">category name</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Category Name" name="name" value="{{data.category_name}}">
+                    </div>
+
+  <div class="form-group">
+                      <label for="exampleTextarea1">Description</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4" name="descript">{{data.description}}</textarea>
+                    </div>
+                      <div class="form-group">
+                      <img src="{{data.category_img.url}}" width="200px"height="=200px">
+                    </div>
+
+                    <div class="form-group">
+                      <label>File upload</label>
+
+                      <div class="input-group col-xs-12">
+                        <input type="file" class="form-control file-upload-info" name="pic" >
+
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">update</button>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+</body>
+</html>
+{% endblock %}

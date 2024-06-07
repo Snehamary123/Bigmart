@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">details of products</h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            CATEGORY NAME
+                          </th>
+                            <th>
+                        PRODUCT NAME
+                          </th>
+                          <th>
+                      PRODUCT PRICE
+                          </th>
+                               <th>
+                      PRODUCT DESCRIPTION
+                          </th>
+
+                          <th>
+                            CATEGORY IMAGES
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {%  for i in pdtdata %}
+                        <tr>
+                          <td class="py-1">{{i.product_category}}</td>
+                          <td>{{i.product_name}}</td>
+                             <td>{{i.product_price}}</td>
+                             <td>{{i.product_description}}</td>
+                            <td><img src="{{i.product_img.url}}" width="200px" height="200px"></td>
+                            <td><a href="{% url 'editproduct' pdtid=i.id %}"><button type="button" class="btn btn-info">edit</button></a></td>
+                            <td><a href="{% url 'deletepdt' pdtid=i.id %}"><button type="button" class="btn btn-info">delete</button></a></td>
+                        </tr>
+{% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
