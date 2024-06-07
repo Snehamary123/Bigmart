@@ -53,10 +53,17 @@ def savecartpage(req):
 
 def cartpage(req):
     data=cartdb.objects.filter(username=req.session['username'])
+    subtotal=0
+    shipping_charge=0
     total=0
     for d in data:
-        total=total+d.Totalprice
-    return render(req,'cart.html',{'data':data,'total':total})
+        subtotal=subtotal+d.Totalprice
+        if subtotal>=500:
+            shipping_charge=50
+        else:
+            shipping_charge = 100
+        total=subtotal+shipping_charge
+    return render(req,'cart.html',{'data':data,'subtotal':subtotal,"total":total,"shipping_charge":shipping_charge})
 
 def delete_item(req,p_id):
     x=cartdb.objects.filter(id=p_id)
