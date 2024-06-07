@@ -69,6 +69,9 @@ def delete_item(req,p_id):
     x=cartdb.objects.filter(id=p_id)
     x.delete()
     return redirect(cartpage)
+
+def checkout(req):
+    return render(req,"checkout.html")
 #**********************************************************
 
 
