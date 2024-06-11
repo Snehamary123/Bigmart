@@ -61,7 +61,7 @@
 						<!-- menu start -->
 					<nav class="main-menu">
 							<ul>
-								<li><a href="{% url 'home' %}">Home</a>
+								<li class="current-list-item"><a href="{% url 'home' %}">Home</a>
 
 								</li>
 								<li><a href="{% url 'about' %}">About</a></li>
@@ -77,10 +77,9 @@
 <!--										<li><a href="news.html">News</a></li>-->
 <!--										<li><a href="single-news.html">Single News</a></li>-->
 <!--									</ul>-->
-								</li>
+<!--								</li>-->
 
-								<li  class="current-list-item"
-								><a href="{% url 'contact' %}">Contact</a></li>
+								<li><a href="{% url 'contact' %}">Contact</a></li>
 								<li><a href="{% url 'product' %}">our products</a></li>
 								<li><a href="#">Shop</a>
 <!--									<ul class="sub-menu">-->
@@ -90,7 +89,6 @@
 <!--										<li><a href="cart.html">Cart</a></li>-->
 <!--									</ul>-->
 								</li>
-
 								{% if request.session.username %}
 								<li><a href="{% url 'logout' %}">Welcome {{request.session.username}} /logout</a>
 								<li>
@@ -98,9 +96,8 @@
 								<li><a href="{% url 'signupform' %}">Register/login</a>
 								<li>
 								{% endif %}
-								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="{% url 'cartpage' %}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>

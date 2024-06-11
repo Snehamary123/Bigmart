@@ -59,7 +59,7 @@
 						<!-- logo -->
 
 						<!-- menu start -->
-						<nav class="main-menu">
+				<nav class="main-menu">
 							<ul>
 								<li class="current-list-item"><a href="{% url 'home' %}">Home</a>
 
@@ -166,13 +166,21 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="index.html">
-						        		<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-						        	</form>
+						        	<form  method="POST" action="{% url 'savecheckout' %}">
+										{% csrf_token %}
+
+						        		<p><input type="text" placeholder="Name" name="username" value="{{request.session.username}}" readonly></p>
+
+						        		<p><input type="email" placeholder="Email"  name="emailid" required></p>
+										<p><input type="text" placeholder="place" name="plac" required></p>
+
+						        		<p><input type="text" placeholder="Address" name="address" required></p>
+						        		<p><input type="tel" placeholder="Phone" name="num" required></p>
+										<p><input type="hidden" value="{{total}}" name="total" readonly></p>
+
+						        		<p><textarea id="bill" cols="30" rows="10" placeholder="Say Something" name="feed"></textarea></p>
+						        	<input type="submit" value="Submit">
+									</form>
 						        </div>
 						      </div>
 						    </div>
@@ -228,35 +236,30 @@
 									<td>Product</td>
 									<td>Total</td>
 								</tr>
+								{% for i in products %}
 								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
+									<td>{{i.productname}}</td>
+									<td>{{i.Totalprice}}</td>
 								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
-								</tr>
+							{% endfor %}
+
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
 									<td>Subtotal</td>
-									<td>$190</td>
+									<td>{{subtotal}}</td>
 								</tr>
 								<tr>
 									<td>Shipping</td>
-									<td>$50</td>
+									<td>{{shipping_charge}}</td>
 								</tr>
 								<tr>
 									<td>Total</td>
-									<td>$240</td>
+									<td>{{total}}</td>
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<a href="{% url 'paymentpage' %}" class="boxed-btn">Place Order</a>
 					</div>
 				</div>
 			</div>
@@ -343,11 +346,7 @@
 	<div class="copyright">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
-						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
-					</p>
-				</div>
+
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
 						<ul>

@@ -12,6 +12,9 @@ path('savecartpage/',views.savecartpage,name='savecartpage'),
 path('cartpage/',views.cartpage,name='cartpage'),
 path('delete_item/<int:p_id>/',views.delete_item,name='delete_item'),
 path('checkout/',views.checkout,name='checkout'),
+path('paymentpage/',views.paymentpage,name='paymentpage'),
+path('savecheckout/',views.savecheckout,name='savecheckout'),
+
 
 
 

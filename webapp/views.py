@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from backend.models import productdb,categorydb
-from webapp.models import contactdb,registerdb,cartdb
+from webapp.models import contactdb,registerdb,cartdb,orderdb
 from django.contrib import messages
+import razorpay
+
 # Create your views here.
 def homepage(req):
     cat=categorydb.objects.all()
@@ -51,7 +53,9 @@ def savecartpage(req):
         obj.save()
         return redirect(homepage)
 
+
 def cartpage(req):
+    cat = categorydb.objects.all()
     data=cartdb.objects.filter(username=req.session['username'])
     subtotal=0
     shipping_charge=0
@@ -63,15 +67,53 @@ def cartpage(req):
         else:
             shipping_charge = 100
         total=subtotal+shipping_charge
-    return render(req,'cart.html',{'data':data,'subtotal':subtotal,"total":total,"shipping_charge":shipping_charge})
+    return render(req,'cart.html',{"data":data,'subtotal':subtotal,"total":total,"shipping_charge":shipping_charge,"cat":cat})
 
 def delete_item(req,p_id):
     x=cartdb.objects.filter(id=p_id)
     x.delete()
     return redirect(cartpage)
 
-def checkout(req):
-    return render(req,"checkout.html")
+def checkout(request):
+    cat = categorydb.objects.all()
+    products =cartdb.objects.filter(username=request.session['username'])
+    subtotal = 0
+    shipping_charge = 0
+    total = 0
+    for i in products:
+        subtotal = subtotal + i.Totalprice
+        if subtotal >= 500:
+            shipping_charge = 50
+        else:
+            shipping_charge = 100
+        total = subtotal + shipping_charge
+    return render(request,"checkout.html",{"products":products,"cat":cat,'subtotal':subtotal,"total":total,"shipping_charge":shipping_charge})
+
+
+
+def paymentpage(req):
+    customer=orderdb.objects.order_by('-id').first()
+    payy=customer.totalprice
+    amount=int(payy*100)
+    payy_str=str(amount)
+    for i in payy_str:
+        print(i)
+    if req.method=="POST":
+        order_currency="INR"
+        client=razorpay.client()
+    return render(req,"payment.html",{"customer":customer,"payy_str":payy_str})
+def savecheckout(req):
+    if req.method=='POST':
+        nam = req.POST.get('username')
+        em = req.POST.get('emailid')
+        pl = req.POST.get('plac')
+        ad = req.POST.get('address')
+        nu = req.POST.get('num')
+        to = req.POST.get('total')
+        fed = req.POST.get('feed')
+        obj=orderdb(Name=nam,email=em,place=pl,address=ad,phone=nu,totalprice=to,feedback=fed)
+        obj.save()
+        return redirect(paymentpage)
 #**********************************************************
 
 

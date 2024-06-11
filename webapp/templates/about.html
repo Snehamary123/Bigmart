@@ -59,12 +59,12 @@
 						<!-- logo -->
 
 						<!-- menu start -->
-				<nav class="main-menu">
+			<nav class="main-menu">
 							<ul>
-								<li><a href="{% url 'home' %}">Home</a>
+								<li class="current-list-item"><a href="{% url 'home' %}">Home</a>
 
 								</li>
-								<li class="current-list-item"><a href="{% url 'about' %}">About</a></li>
+								<li><a href="{% url 'about' %}">About</a></li>
 								<li><a href="#">categories</a>
 									<ul class="sub-menu">
 										{%  for i in cat %}
@@ -89,7 +89,6 @@
 <!--										<li><a href="cart.html">Cart</a></li>-->
 <!--									</ul>-->
 								</li>
-
 								{% if request.session.username %}
 								<li><a href="{% url 'logout' %}">Welcome {{request.session.username}} /logout</a>
 								<li>
@@ -97,9 +96,8 @@
 								<li><a href="{% url 'signupform' %}">Register/login</a>
 								<li>
 								{% endif %}
-								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="{% url 'cartpage' %}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -403,11 +401,7 @@
 	<div class="copyright">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
-						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
-					</p>
-				</div>
+
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
 						<ul>
